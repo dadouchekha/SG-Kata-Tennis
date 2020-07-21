@@ -2,6 +2,10 @@
 
 How to run : Run main function in Wimbledon.java to simulate a tennis Game.
 
+Une branche ont été créé pour chacun des sprints afin de montrer l'évolution entre les sprints.
+
+La branche master contient le résultat final. (post sprint2)
+
 ------
 
 SPRINT1 : manage a tennis GAME within a set of a tennis match
