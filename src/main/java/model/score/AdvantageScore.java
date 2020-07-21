@@ -11,12 +11,12 @@ public class AdvantageScore extends Score {
 
     @Override
     public boolean canApply() {
-        return player1.hasAdvantage(player2) || player2.hasAdvantage(player1);
+        return player1.hasDeuceAdvantage(player2) || player2.hasDeuceAdvantage(player1);
     }
 
     @Override
     public String display() {
-        Player advantagePlayer = player1.hasAdvantage(player2) ? player1 : player2;
+        Player advantagePlayer = player1.hasDeuceAdvantage(player2) ? player1 : player2;
         return "ADVANTAGE "+advantagePlayer.getName();
     }
 }

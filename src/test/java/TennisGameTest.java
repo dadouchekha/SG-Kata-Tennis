@@ -1,5 +1,5 @@
 import model.Player;
-import model.TennisGame;
+import model.TennisMatch;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,20 +10,23 @@ import java.util.stream.IntStream;
 
 public class TennisGameTest {
 
-    Player player1 = new Player("Djoko");
-    Player player2 = new Player("Nadal");
-    TennisGame tennisGame = null;
+    Player player1 = null;
+    Player player2 = null;
+    TennisMatch tennisMatch = null;
 
     @BeforeEach
     public void init() {
-        tennisGame = new TennisGame(player1, player2);
+        player1 = new Player("Djoko");
+        player2 = new Player("Nadal");
+        tennisMatch = new TennisMatch(player1, player2);
     }
+
 
     @Test
     public void newGameShouldStartWithScore0ForBothPlayers() {
 
-        Assertions.assertThat(tennisGame.getPlayer1().getNbPoints()).isEqualTo(0);
-        Assertions.assertThat(tennisGame.getPlayer2().getNbPoints()).isEqualTo(0);
+        Assertions.assertThat(tennisMatch.getPlayer1().getNbPoints()).isEqualTo(0);
+        Assertions.assertThat(tennisMatch.getPlayer2().getNbPoints()).isEqualTo(0);
     }
 
     @ParameterizedTest(name = "{0} point(s) should display {1}")
@@ -35,7 +38,7 @@ public class TennisGameTest {
     public void testPlayerScore(int player1Points, String expectedScore) {
         Player player1 = new Player("Djoko");
         IntStream.range(0, player1Points).forEach(i -> player1.winPoint());
-        Assertions.assertThat(player1.getScore()).isEqualTo(expectedScore);
+        Assertions.assertThat(player1.getGameScore()).isEqualTo(expectedScore);
     }
 
     @ParameterizedTest(name = "Score {0} to {1} should display {2}")
@@ -55,7 +58,8 @@ public class TennisGameTest {
     })
     public void shouldDisplayWinner(int player1Points, int player2Points, String expectedScore) {
         runGame(player1Points, player2Points);
-        Assertions.assertThat(tennisGame.displayScore()).isEqualTo(expectedScore);
+        tennisMatch.selectCorrectScore();
+        Assertions.assertThat(tennisMatch.displayCurrentGameScore()).isEqualTo(expectedScore);
     }
 
     @ParameterizedTest(name = "Score {0} to {1} should display {2}")
@@ -67,7 +71,8 @@ public class TennisGameTest {
     })
     public void shouldDisplayDeuce(int player1Points, int player2Points, String expectedScore) {
         runGame(player1Points, player2Points);
-        Assertions.assertThat(tennisGame.displayScore()).isEqualTo(expectedScore);
+        tennisMatch.selectCorrectScore();
+        Assertions.assertThat(tennisMatch.displayCurrentGameScore()).isEqualTo(expectedScore);
     }
 
     @ParameterizedTest(name = "Score {0} to {1} should display {2}")
@@ -79,7 +84,8 @@ public class TennisGameTest {
     })
     public void shouldDisplayAdvantage(int player1Points, int player2Points, String expectedScore) {
         runGame(player1Points, player2Points);
-        Assertions.assertThat(tennisGame.displayScore()).isEqualTo(expectedScore);
+        tennisMatch.selectCorrectScore();
+        Assertions.assertThat(tennisMatch.displayCurrentGameScore()).isEqualTo(expectedScore);
     }
 
     @ParameterizedTest(name = "Score {0} to {1} should display {2}")
@@ -101,12 +107,13 @@ public class TennisGameTest {
     })
     public void shouldDisplayPlayerScore(int player1Points, int player2Points, String expectedScore) {
         runGame(player1Points, player2Points);
-        Assertions.assertThat(tennisGame.displayScore()).isEqualTo(expectedScore);
+        tennisMatch.selectCorrectScore();
+        Assertions.assertThat(tennisMatch.displayCurrentGameScore()).isEqualTo(expectedScore);
     }
 
     private void runGame(int player1Points, int player2Points) {
-        IntStream.range(0, player1Points).forEach( i -> tennisGame.getPlayer1().winPoint());
-        IntStream.range(0, player2Points).forEach( i -> tennisGame.getPlayer2().winPoint());
+        IntStream.range(0, player1Points).forEach( i -> tennisMatch.getPlayer1().winPoint());
+        IntStream.range(0, player2Points).forEach( i -> tennisMatch.getPlayer2().winPoint());
     }
 
 }

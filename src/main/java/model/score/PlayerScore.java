@@ -16,6 +16,6 @@ public class PlayerScore extends Score {
 
     @Override
     public String display() {
-        return player1.getScore()+"-"+player2.getScore();
+        return player1.getGameScore()+"-"+player2.getGameScore();
     }
 }
