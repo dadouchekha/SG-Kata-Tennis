@@ -4,18 +4,27 @@ import model.Player;
 
 public class GameScore extends Score {
 
+    private String gameWinner;
+
     public GameScore(Player player1, Player player2) {
         super(player1, player2);
     }
 
     @Override
     public boolean canApply() {
-        return player1.hasWon(player2) || player2.hasWon(player1);
+        if(player1.hasWonGame(player2)) {
+            gameWinner = player1.getName();
+            return true;
+        }
+        if(player2.hasWonGame(player1)) {
+            gameWinner = player2.getName();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String display() {
-        Player winnerPlayer = player1.hasWon(player2) ? player1 : player2;
-        return winnerPlayer.getName()+" Win game";
+       return gameWinner+" Win game";
     }
 }
